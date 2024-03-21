@@ -24,7 +24,7 @@ namespace Geta.Optimizely.Sitemaps
         {
             return AddSitemaps(services, _ => { }, DefaultPolicy);
         }
-        
+
         public static IServiceCollection AddSitemaps(
             this IServiceCollection services,
             Action<SitemapOptions> setupAction)
@@ -43,8 +43,10 @@ namespace Geta.Optimizely.Sitemaps
             services.AddSingleton<ISitemapLoader, SitemapLoader>();
             services.AddSingleton<ISitemapRepository, SitemapRepository>();
             services.AddSingleton<IContentFilter, ContentFilter>();
+            services.AddSingleton<IVssContentFilter, VssContentFilter>();
             services.AddTransient<IMobileSitemapXmlGenerator, MobileSitemapXmlGenerator>();
             services.AddTransient<IStandardSitemapXmlGenerator, StandardSitemapXmlGenerator>();
+            services.AddTransient<IVssSitemapXmlGenerator, VssSitemapXmlGenerator>();
             services.AddTransient(typeof(IMapper<SitemapViewModel, SitemapData>), typeof(SitemapViewModel.MapperToEntity));
             services.AddTransient(typeof(ICreateFrom<SitemapData, SitemapViewModel>), typeof(SitemapViewModel.MapperFromEntity));
 
@@ -58,9 +60,9 @@ namespace Geta.Optimizely.Sitemaps
             setupAction(options);
             services.AddSingleton(typeof(IUriAugmenterService), options.UriAugmenterService);
 
-            services.AddAuthorization(options =>
+            services.AddAuthorization(o =>
             {
-                options.AddPolicy(Constants.PolicyName, configurePolicy);
+                o.AddPolicy(Constants.PolicyName, configurePolicy);
             });
 
             return services;

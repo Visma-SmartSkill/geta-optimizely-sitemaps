@@ -82,19 +82,19 @@ namespace Geta.Optimizely.Sitemaps.Utils
             return ShouldExcludeContent(languageContentInfo.Content);
         }
 
-        private bool IsVisibleOnSite(IContent content)
+        protected virtual bool IsVisibleOnSite(IContent content)
         {
             return _templateResolver.HasTemplate(content, TemplateTypeCategories.Request);
         }
 
-        private static bool IsLink(PageData page)
+        protected virtual bool IsLink(PageData page)
         {
             return page.LinkType == PageShortcutType.External ||
                           page.LinkType == PageShortcutType.Shortcut ||
                           page.LinkType == PageShortcutType.Inactive;
         }
 
-        private static bool IsSitemapPropertyEnabled(IContentData content)
+        protected virtual bool IsSitemapPropertyEnabled(IContentData content)
         {
             var property = content.Property[PropertySEOSitemaps.PropertyName] as PropertySEOSitemaps;
             if (property == null) //not set on the page, check if there are default values for a page type perhaps
@@ -120,7 +120,7 @@ namespace Geta.Optimizely.Sitemaps.Utils
             return true;
         }
 
-        private bool IsAccessibleToEveryone(IContent content)
+        protected virtual bool IsAccessibleToEveryone(IContent content)
         {
             try
             {
@@ -141,7 +141,7 @@ namespace Geta.Optimizely.Sitemaps.Utils
             return false;
         }
 
-        private static bool IsPublished(IContent content)
+        protected virtual bool IsPublished(IContent content)
         {
             if (content is IVersionable versionableContent)
             {

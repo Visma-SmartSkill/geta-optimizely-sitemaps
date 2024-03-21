@@ -8,6 +8,7 @@ namespace Geta.Optimizely.Sitemaps.Entities
         Standard,
         Mobile,
         Commerce,
-        StandardAndCommerce
+        StandardAndCommerce,
+        VssStandard
     }
 }
