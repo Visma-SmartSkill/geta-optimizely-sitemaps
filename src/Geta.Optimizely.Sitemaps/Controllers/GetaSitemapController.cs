@@ -11,6 +11,7 @@ using Geta.Optimizely.Sitemaps.Repositories;
 using Geta.Optimizely.Sitemaps.Utils;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
@@ -45,6 +46,7 @@ public class GetaSitemapController : Controller
     [Route("{path}sitemap.xml", Name = "Sitemap with path")]
     [Route("{language}/sitemap.xml", Name = "Sitemap with language")]
     [Route("{language}/{path}sitemap.xml", Name = "Sitemap with language and path")]
+    [Authorize]
     public ActionResult Index()
     {
         var sitemapData = _sitemapRepository.GetSitemapData(Request.GetDisplayUrl());

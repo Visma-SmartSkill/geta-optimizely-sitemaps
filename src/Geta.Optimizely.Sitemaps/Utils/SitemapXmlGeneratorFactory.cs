@@ -32,6 +32,9 @@ namespace Geta.Optimizely.Sitemaps.Utils
                 case SitemapFormat.StandardAndCommerce:
                     xmlGenerator = _serviceProvider.GetRequiredService<ICommerceAndStandardSitemapXmlGenerator>();
                     break;
+                case SitemapFormat.VssStandard:
+                    xmlGenerator = _serviceProvider.GetRequiredService<IVssSitemapXmlGenerator>();
+                    break;
                 default:
                     xmlGenerator = _serviceProvider.GetRequiredService<IStandardSitemapXmlGenerator>();
                     break;
