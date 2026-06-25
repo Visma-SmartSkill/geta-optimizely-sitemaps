@@ -24,8 +24,7 @@
   </UsingTask>
 
   <PropertyGroup>
-    <SolutionDir Condition="$(SolutionDir) == ''">$(MSBuildProjectDirectory)\..\..\</SolutionDir>
-    <TmpOutDir>$(SolutionDir)\tmp</TmpOutDir>
+    <TmpOutDir>$(MSBuildProjectDirectory)\tmpoutdir</TmpOutDir>
   </PropertyGroup>
 
   <Target Name="CreateZip" AfterTargets="Build">
@@ -34,10 +33,10 @@
 
     <!-- Copy -->
     <ItemGroup>
-      <ClientResources Include="$(SolutionDir)\src\$(MSBuildProjectName)\module\ClientResources\**\*" />
+      <ClientResources Include="$(MSBuildProjectDirectory)\module\ClientResources\**\*" />
     </ItemGroup>
 
-    <Copy SourceFiles="$(SolutionDir)\src\$(MSBuildProjectName)\module\module.config"
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\module\module.config"
           DestinationFolder="$(TmpOutDir)\content" />
     <Copy SourceFiles="@(ClientResources)"
           DestinationFiles="@(ClientResources -> '$(TmpOutDir)\content\$(Version)\ClientResources\%(RecursiveDir)%(Filename)%(Extension)')" />
@@ -62,7 +61,7 @@
       <BuildAction>None</BuildAction>
       <PackageCopyToOutput>true</PackageCopyToOutput>
     </Content>
-    <Content Include="$(SolutionDir)\src\$(MSBuildProjectName)\msbuild\CopyZipFiles.targets" >
+    <Content Include="$(MSBuildProjectDirectory)\msbuild\CopyZipFiles.targets" >
       <Pack>true</Pack>
       <PackagePath>build\net6.0\$(MSBuildProjectName).targets</PackagePath>
       <BuildAction>None</BuildAction>
